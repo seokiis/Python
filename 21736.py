@@ -12,6 +12,7 @@ for i in range(N):
   for j in range(M):
     if row[j]=='I':
       start=(i,j)
+      print('start: ', start)
   graph.append(row)
 
 #BFS
@@ -22,6 +23,7 @@ visited=[[False]*M for _ in range(N)]
 people_count=0 #만날 수 있는 사람 수
 
 queue=deque([start])
+print(queue)
 visited[start[0]][start[1]]=True
 while queue:
   x,y=queue.popleft()
