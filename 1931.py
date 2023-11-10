@@ -18,4 +18,3 @@ for i in range(1, N):
         end_time = time[i][1]
 
 print(cnt)
-출처: https://suri78.tistory.com/26 [공부노트:티스토리]
