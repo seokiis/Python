@@ -13,7 +13,6 @@ def bfs(graph,x,y):
 
   while queue:
     a,b=queue.popleft()
-    print(a,b)
     for i in range(4):
       na=a+dx[i]
       nb=b+dy[i]
