@@ -6,6 +6,7 @@ s = set()
 
 for i in range(m):
     line = sys.stdin.readline().strip().split()
+  
 
     # all, empty는 따로 처리해준다.
     if len(line) == 1:

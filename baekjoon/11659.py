@@ -12,6 +12,8 @@ array = list(map(int, input().split()))
 
 prefix_sum = [0]
 
+#  5 4 3 2 1 
+# prefix_sum = [0 5 9 12 14 15]
 temp = 0
 for number in array:
     temp += number
