@@ -18,9 +18,6 @@ def bfs(graph,start):
   return sum(num)
         
 
-  
-
-
 n,m=map(int,input().split())
 graph=[[]for _ in range(n+1)]
 for i in range(m):

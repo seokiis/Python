@@ -1,10 +1,10 @@
 import sys
-input=sys.stdin.readline
 from collections import deque
 
-n,m=map(int,input().split())
-graph=[]
+input=sys.stdin.readline
 
+
+# bfs 는 한 단계씩 모든 단계로 커지니까 길이 여러개라도 최솟값을 반환하게 된다. 
 def bfs(x,y):
   dx=[0,0,1,-1]
   dy=[1,-1,0,0]
@@ -22,14 +22,17 @@ def bfs(x,y):
         continue
 
       #벽
-      if graph[nx][ny]==0:
-        continue 
+      # if graph[nx][ny]==0:
+      #   continue 
 
       if graph[nx][ny]==1:
         graph[nx][ny]=graph[x][y]+1
         queue.append((nx,ny))
       
   return graph[n-1][m-1]
+
+n,m=map(int,input().split())
+graph=[]
 
 for _ in range(n):
   graph.append(list(map(int,input().rstrip())))
