@@ -19,6 +19,13 @@ for _ in range(n - 1):
     graph[b].append(a)
 
 
+# def dfs(s):
+#     for node in graph[s]:
+#         if parent[node] == 0:
+#             parent[node] = s
+#             dfs(node)
+
+
 def dfs(s):
     for node in graph[s]:
         if parent[node] == 0:
