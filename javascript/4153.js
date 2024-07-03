@@ -1,3 +1,8 @@
+// 6 8 10
+// 25 52 60
+// 5 12 13
+// 0 0 0
+
 const fs = require("fs");
 const io = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
 
