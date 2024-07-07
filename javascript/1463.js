@@ -1,10 +1,10 @@
 const fs = require("fs");
-const io = process.platform === "linux" ? "/dev/stdin" : "../input.txt";
+const io = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
 let input = fs.readFileSync(io).toString();
 
 const num = Number(input);
 
-const DP = new Array(num + 1).fill(0);
+const DP = Array(num + 1).fill(0);
 
 DP[1] = 0;
 DP[2] = 1;

@@ -1,17 +1,37 @@
 const fs = require("fs");
-const io = process.platform === "linux" ? "/dev/stdin" : "../input.txt";
+const io = process.platform === "linux" ? "/dev/stdin" : "./input.txt";
+const input = fs.readFileSync(io).toString().trim().split("\n");
 
-let [, ...lines] = fs.readFileSync(io).toString().trim().split("\n");
+// 2
+// 10 8 17
+// 0 0
+// 1 0
+// 1 1
+// 4 2
+// 4 3
+// 4 5
+// 2 4
+// 3 4
+// 7 4
+// 8 4
+// 9 4
+// 7 5
+// 8 5
+// 9 5
+// 7 6
+// 8 6
+// 9 6
+// 10 10 1
+// 5 5
 
 class Queue {
   constructor() {
     this.queue = [];
-    this.begin = 0;
     this.end = 0;
+    this.begin = 0;
   }
   push(element) {
-    this.queue.push(element);
-    this.end++;
+    this.queue[this.end++] = element;
   }
   pop() {
     return this.queue[this.begin++];
@@ -21,57 +41,62 @@ class Queue {
   }
 }
 
-for (let line = 0; line < lines.length; line++) {
-  let [x_size, y_size, p_size] = lines[line].split(" ").map(Number);
-
-  let cabbagePositions = [];
-  let positions = lines.slice(line + 1, line + p_size + 1);
-
-  let map = new Array(y_size).fill().map(() => new Array(x_size).fill(0));
-  let isVisited = new Array(y_size).fill().map(() => new Array(x_size).fill(0));
-
-  positions.forEach((position) => {
-    let [x, y] = position.split(" ").map(Number);
-    cabbagePositions.push({ x, y });
-    map[y][x] = 1;
-  });
-
-  let group = 1;
-  cabbagePositions.forEach((position) => {
-    if (isVisited[position.y][position.x] === 0) {
-      BFS(position.x, position.y, map, isVisited, x_size, y_size, group);
-      group++;
-    }
-  });
-
-  console.log(group - 1);
-
-  map = null;
-  line += p_size;
-}
-
-function BFS(x, y, map, isVisited, x_size, y_size, group) {
-  const dx = [1, -1, 0, 0];
-  const dy = [0, 0, 1, -1];
-
+function bfs(x, y, visited, graph, xSize, ySize) {
   let queue = new Queue();
+  let dx = [0, 0, 1, -1];
+  let dy = [1, -1, 0, 0];
 
-  queue.push({ x, y });
-  isVisited[y][x] = group;
+  queue.push([x, y]);
+  visited[x][y] = true;
 
-  while (queue.size() !== 0) {
-    let { x, y } = queue.pop();
+  while (queue.size() > 0) {
+    let [x, y] = queue.pop();
 
-    for (let dir = 0; dir < 4; dir++) {
-      let X = x + dx[dir];
-      let Y = y + dy[dir];
+    for (let i = 0; i < 4; i++) {
+      let nx = x + dx[i];
+      let ny = y + dy[i];
 
-      if (0 <= X && X < x_size && 0 <= Y && Y < y_size) {
-        if (isVisited[Y][X] === 0 && map[Y][X] === 1) {
-          queue.push({ x: X, y: Y });
-          isVisited[Y][X] = group;
-        }
+      if (
+        nx >= 0 &&
+        nx < xSize &&
+        ny >= 0 &&
+        ny < ySize &&
+        !visited[nx][ny] &&
+        graph[nx][ny] === 1
+      ) {
+        queue.push([nx, ny]);
+        graph[nx][ny] = 0;
+        visited[nx][ny] = true;
       }
     }
   }
+}
+
+const t = parseInt(input[0]);
+let idx = 1;
+for (let i = 0; i < t; i++) {
+  let [ySize, xSize, k] = input[idx++].split(" ").map(Number);
+  let graph = Array(xSize)
+    .fill()
+    .map(() => Array(ySize).fill(0));
+  let visited = Array(xSize)
+    .fill()
+    .map(() => Array(ySize).fill(false));
+
+  for (let j = 0; j < k; j++) {
+    let [a, b] = input[idx++].split(" ").map(Number);
+    graph[b][a] = 1;
+  }
+
+  let result = 0;
+  for (let i = 0; i < xSize; i++) {
+    for (let j = 0; j < ySize; j++) {
+      if (graph[i][j] === 1) {
+        bfs(i, j, visited, graph, xSize, ySize);
+
+        result++;
+      }
+    }
+  }
+  console.log(result);
 }
