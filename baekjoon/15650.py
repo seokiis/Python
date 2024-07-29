@@ -6,22 +6,25 @@ input = sys.stdin.readline
 
 N, M = map(int, input().split())
 
-arr = []
+# arr = []
 
 
-def dfs(s):
-    # 탈출조건
-    if len(arr) == M:
-        print(*arr)
-        return
-    for i in range(s, N + 1):
-        if i not in arr:
-            arr.append(i)
-            dfs(i)
-            arr.pop()
+# def dfs(s):
+#     # 탈출조건
+#     if len(arr) == M:
+#         print(*arr)
+#         return
+#     for i in range(s, N + 1):
+#         if i not in arr:
+#             arr.append(i)
+#             dfs(i)
+#             arr.pop()
 
 
-dfs(1)
+# dfs(1)
+
+for c in combinations(range(1, N + 1), M):
+    print(*c)
 
 
 # 1 2

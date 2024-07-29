@@ -27,7 +27,7 @@ input[0].split("").forEach((el, idx) => {
   else operators.push(el);
 });
 
-// 3+8*7-9*2
+// 3+8*7-9*2`
 // nums = [3, 8, 7, 9, 2]
 // operators = ['+', '*', '-','*']
 function check(idx, number) {
